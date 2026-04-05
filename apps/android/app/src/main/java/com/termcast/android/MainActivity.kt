@@ -4,7 +4,9 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.runtime.*
+import androidx.compose.runtime.snapshotFlow
 import androidx.lifecycle.lifecycleScope
+import kotlinx.coroutines.flow.filter
 import com.termcast.android.auth.PairingRepository
 import com.termcast.android.connection.ConnectionState
 import com.termcast.android.connection.WSClient
@@ -53,13 +55,15 @@ private fun AppNavigation(
     var isPaired by remember { mutableStateOf(pairingRepo.hasCredentials()) }
     val connectionState by wsClient.state.collectAsState()
 
-    // AUTH_FAILED: stale JWT — clear credentials and force re-pairing.
-    LaunchedEffect(connectionState) {
-        if (connectionState == ConnectionState.AUTH_FAILED) {
-            pairingRepo.clear()
-            wsClient.disconnect()
-            isPaired = false
-        }
+    LaunchedEffect(Unit) {
+        snapshotFlow { connectionState }
+            .filter { it == ConnectionState.AUTH_FAILED }
+            .collect {
+                // Stale JWT rejected by server — clear credentials and force re-pairing.
+                pairingRepo.clear()
+                wsClient.disconnect() // resets state/cancels any pending jobs
+                isPaired = false
+            }
     }
 
     when {
@@ -67,9 +71,6 @@ private fun AppNavigation(
             pairingRepo.save(host, secretHex)
             pairingRepo.load()?.let { creds -> wsClient.connect(creds) }
             isPaired = true
-        }
-        connectionState == ConnectionState.AUTH_FAILED -> {
-            // Handled by LaunchedEffect above — renders briefly before isPaired resets.
         }
         connectionState == ConnectionState.OFFLINE -> OfflineScreen {
             pairingRepo.load()?.let { creds -> wsClient.connect(creds) }

@@ -7,6 +7,7 @@ import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
 import okhttp3.*
 import javax.crypto.Mac
+import java.util.concurrent.atomic.AtomicBoolean
 import javax.crypto.spec.SecretKeySpec
 
 enum class ConnectionState { DISCONNECTED, CONNECTING, CONNECTED, OFFLINE, AUTH_FAILED }
@@ -26,10 +27,10 @@ class WSClient(private val scope: CoroutineScope) : WSClientInterface {
     private val policy = ReconnectPolicy()
     private var pingPong: PingPong? = null
     private var reconnectJob: Job? = null
-    private var didEverConnect = false
+    private val didEverConnect = AtomicBoolean(false)
 
     override fun connect(creds: PairingCredentials) {
-        didEverConnect = false
+        didEverConnect.set(false)
         _state.value = ConnectionState.CONNECTING
         val token = buildJWT(creds.secret)
         val request = Request.Builder()
@@ -39,7 +40,7 @@ class WSClient(private val scope: CoroutineScope) : WSClientInterface {
 
         socket = client.newWebSocket(request, object : WebSocketListener() {
             override fun onOpen(ws: WebSocket, response: Response) {
-                didEverConnect = true
+                didEverConnect.set(true)
                 _state.value = ConnectionState.CONNECTED
                 policy.reset()
                 pingPong = PingPong(
@@ -58,7 +59,7 @@ class WSClient(private val scope: CoroutineScope) : WSClientInterface {
                 pingPong?.stop()
                 // response != null means the server replied (HTTP reached server) but upgrade failed.
                 // If we never connected with these creds, treat as auth failure.
-                if (!didEverConnect && response != null) {
+                if (!didEverConnect.get() && response != null) {
                     _state.value = ConnectionState.AUTH_FAILED
                 } else {
                     _state.value = ConnectionState.OFFLINE
@@ -81,7 +82,7 @@ class WSClient(private val scope: CoroutineScope) : WSClientInterface {
         pingPong?.stop()
         socket?.cancel()
         socket = null
-        didEverConnect = false
+        didEverConnect.set(false)
         _state.value = ConnectionState.DISCONNECTED
         policy.reset()
     }

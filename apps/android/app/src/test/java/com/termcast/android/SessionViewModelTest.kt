@@ -154,21 +154,19 @@ class SessionViewModelTest {
     }
 
     @Test
-    fun `AUTH_FAILED state emitted when server rejects on first connect`() = runTest {
-        val authFailedState = MutableStateFlow(ConnectionState.DISCONNECTED)
-        val fakeAuthClient = object : WSClientInterface {
-            override val state: StateFlow<ConnectionState> = authFailedState
-            override val messages: SharedFlow<WSMessageEnvelope> = MutableSharedFlow()
-            override fun connect(creds: PairingCredentials) {
-                authFailedState.value = ConnectionState.AUTH_FAILED
-            }
-            override fun send(json: String) {}
-            override fun disconnect() { authFailedState.value = ConnectionState.DISCONNECTED }
-        }
+    fun `AUTH_FAILED state propagates through SessionViewModel to observer`() = runTest {
+        val fakeClient = FakeWSClient()
+        val vm = SessionViewModel(fakeClient)
 
-        fakeAuthClient.connect(PairingCredentials("host.ts.net", byteArrayOf(1, 2, 3)))
+        // Simulate server rejecting the JWT — emit AUTH_FAILED from the fake client
+        fakeClient.setState(ConnectionState.AUTH_FAILED)
         advanceUntilIdle()
 
-        assertEquals(ConnectionState.AUTH_FAILED, authFailedState.value)
+        // SessionViewModel exposes connectionState from the WS client; verify AUTH_FAILED propagates
+        vm.connectionState.test {
+            val current = awaitItem()
+            assertEquals(ConnectionState.AUTH_FAILED, current)
+            cancelAndIgnoreRemainingEvents()
+        }
     }
 }
