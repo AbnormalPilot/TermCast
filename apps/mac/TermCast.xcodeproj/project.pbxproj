@@ -24,6 +24,7 @@
 		87D427BA6CC343C7696DEE04 /* WebSocketServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFB3A738E763232BA9D8E080 /* WebSocketServer.swift */; };
 		90C9BEF92D4D97F1574EBFEF /* JWTManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 441A6F7B7088493AC7051170 /* JWTManager.swift */; };
 		9130DC0EF7BA598A73D4A471 /* JWTManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D336B17718BDAAC6413ED4A1 /* JWTManagerTests.swift */; };
+		B1408A3342EA4DC7A6A2C4AC /* WebSocketServerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8403101976D1491BBD108268 /* WebSocketServerTests.swift */; };
 		95168733220A28E2BB68F04B /* SecurityTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37C329D147E6915024ED023E /* SecurityTests.swift */; };
 		97E9C0AB4E7060464AF8D560 /* NIOHTTP1 in Frameworks */ = {isa = PBXBuildFile; productRef = 070F4266C3E9F190AE397A13 /* NIOHTTP1 */; };
 		9B20180A1D269517A46F2BB1 /* NIOWebSocket in Frameworks */ = {isa = PBXBuildFile; productRef = 8E3A81F5EDBF49F3FF0D6222 /* NIOWebSocket */; };
@@ -87,6 +88,7 @@
 		C449556CA3E39F8D5ECDD07C /* MenuBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBarController.swift; sourceTree = "<group>"; };
 		C5F4B581305511AA93705BBB /* ModelsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelsTests.swift; sourceTree = "<group>"; };
 		D336B17718BDAAC6413ED4A1 /* JWTManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JWTManagerTests.swift; sourceTree = "<group>"; };
+		8403101976D1491BBD108268 /* WebSocketServerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebSocketServerTests.swift; sourceTree = "<group>"; };
 		E5134779E1E621E5A28ECE80 /* TermCast.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TermCast.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E552F8E0113B0C5F1316CD48 /* TermCastTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TermCastTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		FACD78607264F49EC5490435 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
@@ -251,6 +253,7 @@
 				10D24074619D61A0A4D3CE92 /* SessionRegistryTests.swift */,
 				50759F79E7A9F318EF123D93 /* TailscaleSetupTests.swift */,
 				C13A30DC970DD7F778B06396 /* WSMessageTests.swift */,
+				8403101976D1491BBD108268 /* WebSocketServerTests.swift */,
 			);
 			path = TermCastTests;
 			sourceTree = "<group>";
@@ -392,6 +395,7 @@
 				D158A83194CBD684888F2F73 /* SessionRegistryTests.swift in Sources */,
 				E41BC258569CD3ABC4839759 /* TailscaleSetupTests.swift in Sources */,
 				7A5B86D80E84524C11B41FC4 /* WSMessageTests.swift in Sources */,
+				B1408A3342EA4DC7A6A2C4AC /* WebSocketServerTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
