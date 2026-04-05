@@ -1,0 +1,51 @@
+name: Mac Tests
+
+on:
+  push:
+    paths:
+      - 'apps/mac/**'
+      - '.github/workflows/mac-ci.yml'
+  pull_request:
+    paths:
+      - 'apps/mac/**'
+
+jobs:
+  test:
+    runs-on: macos-14
+    timeout-minutes: 20
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Select Xcode
+        run: sudo xcode-select -s /Applications/Xcode_15.4.app
+
+      - name: Resolve Swift packages
+        run: |
+          cd apps/mac
+          xcodebuild -resolvePackageDependencies -scheme TermCast
+
+      - name: Build and test
+        run: |
+          cd apps/mac
+          xcodebuild test \
+            -scheme TermCast \
+            -destination 'platform=macOS' \
+            -enableCodeCoverage YES \
+            2>&1 | grep -E "error:|TEST|BUILD" | tail -30
+
+      - name: Fail on test failure
+        run: |
+          cd apps/mac
+          xcodebuild test \
+            -scheme TermCast \
+            -destination 'platform=macOS' \
+            2>&1 | grep -E "TEST FAILED|BUILD FAILED" && exit 1 || exit 0
+
+      - name: Upload test results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: mac-test-results
+          path: apps/mac/*.xcresult
+          if-no-files-found: ignore
