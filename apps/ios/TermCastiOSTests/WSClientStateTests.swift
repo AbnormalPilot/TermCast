@@ -28,12 +28,13 @@ struct WSClientStateTests {
         #expect(client.state == .disconnected)
     }
 
-    @Test("disconnect() state is disconnected, not authFailed")
-    func disconnectDoesNotProduceAuthFailed() {
+    @Test("disconnect() state is disconnected, not authFailed after async delivery")
+    func disconnectDoesNotProduceAuthFailed() async throws {
         let client = WSClient()
         client.connect(host: "invalid.host.termcast.test", secret: Data(repeating: 0, count: 32))
         client.disconnect()
-        // After explicit disconnect, state MUST be .disconnected — never .authFailed
+        // Wait for any async NWConnection .cancelled callback to fire
+        try await Task.sleep(nanoseconds: 500_000_000)
         #expect(client.state == .disconnected)
         #expect(client.state != .authFailed)
     }
