@@ -95,4 +95,15 @@ struct WSMessageiOSTests {
         #expect(json.contains("\"attach\""))
         #expect(json.contains("AABBCCDD-1234-5678-ABCD-000000000001"))
     }
+
+    @Test("attach message round-trips through json()/from(json:)")
+    func attachMessageRoundTrips() {
+        let id = UUID(uuidString: "AABBCCDD-1234-5678-ABCD-000000000001")!
+        let original = WSMessage.attach(sessionId: id)
+        let json = original.json()
+        let decoded = WSMessage.from(json: json)
+        #expect(decoded != nil)
+        #expect(decoded?.type == .attach)
+        #expect(decoded?.sessionId == id.uuidString)
+    }
 }
