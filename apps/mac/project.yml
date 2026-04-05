@@ -47,5 +47,6 @@ targets:
     sources: [TermCastTests]
     settings:
       SWIFT_VERSION: 5.10
+      GENERATE_INFOPLIST_FILE: YES
     dependencies:
       - target: TermCast
