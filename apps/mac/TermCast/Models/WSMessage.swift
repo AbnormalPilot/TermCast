@@ -18,6 +18,7 @@ struct WSMessage: Codable {
 
     // MARK: - Server → Client factories
     static func ping() -> WSMessage { WSMessage(type: .ping) }
+    static func pong() -> WSMessage { WSMessage(type: .pong) }
     static func sessions(_ sessions: [Session]) -> WSMessage {
         WSMessage(type: .sessions, sessions: sessions)
     }
