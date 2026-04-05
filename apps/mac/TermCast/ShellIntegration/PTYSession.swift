@@ -39,6 +39,16 @@ actor PTYSession {
         }
     }
 
+    // MARK: - Callback setters (actor-isolated async access)
+
+    func setOnOutput(_ handler: @Sendable @escaping (Data) -> Void) {
+        onOutput = handler
+    }
+
+    func setOnClose(_ handler: @Sendable @escaping () -> Void) {
+        onClose = handler
+    }
+
     // MARK: - Ring buffer snapshot (for reconnecting clients)
 
     func bufferSnapshot() -> Data {
