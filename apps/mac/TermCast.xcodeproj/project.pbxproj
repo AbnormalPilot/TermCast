@@ -18,8 +18,10 @@
 		9130DC0EF7BA598A73D4A471 /* JWTManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D336B17718BDAAC6413ED4A1 /* JWTManagerTests.swift */; };
 		97E9C0AB4E7060464AF8D560 /* NIOHTTP1 in Frameworks */ = {isa = PBXBuildFile; productRef = 070F4266C3E9F190AE397A13 /* NIOHTTP1 */; };
 		9B20180A1D269517A46F2BB1 /* NIOWebSocket in Frameworks */ = {isa = PBXBuildFile; productRef = 8E3A81F5EDBF49F3FF0D6222 /* NIOWebSocket */; };
+		A35664270B67A4D613D106BE /* AgentSocketServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38C695E1B31A2025348AA3FE /* AgentSocketServer.swift */; };
 		B5002F6C04A7F7EA47F2F537 /* KeychainStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4728E3F39D1F26DE22395E76 /* KeychainStore.swift */; };
 		C0CDF7A55C56452EDAC43A5E /* NIOCore in Frameworks */ = {isa = PBXBuildFile; productRef = A31BC5A9C64FB6369DE1AACB /* NIOCore */; };
+		DDE199077AE4812DAF0358AD /* PTYSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 279509B566666F9A4482D811 /* PTYSession.swift */; };
 		F07281819F174515A8F446D4 /* NIOPosix in Frameworks */ = {isa = PBXBuildFile; productRef = 0442E45B47DF33E9E13CFBC5 /* NIOPosix */; };
 		F0DFBA7A4BFEEF6F711159BA /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10BD4D5DD5DBA2ADF6865146 /* Session.swift */; };
 		F6D38047950AB9537E4CDAE3 /* TermCastApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC01819FA378CF2DDB75EAFE /* TermCastApp.swift */; };
@@ -42,7 +44,9 @@
 		07B34D319E0DBD332D1531CC /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		10BD4D5DD5DBA2ADF6865146 /* Session.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Session.swift; sourceTree = "<group>"; };
 		1475B1320A0428C3BF903558 /* WSMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSMessage.swift; sourceTree = "<group>"; };
+		279509B566666F9A4482D811 /* PTYSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PTYSession.swift; sourceTree = "<group>"; };
 		2FA1407F9CE0C01FBFD42EC6 /* RingBufferTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RingBufferTests.swift; sourceTree = "<group>"; };
+		38C695E1B31A2025348AA3FE /* AgentSocketServer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgentSocketServer.swift; sourceTree = "<group>"; };
 		441A6F7B7088493AC7051170 /* JWTManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JWTManager.swift; sourceTree = "<group>"; };
 		4728E3F39D1F26DE22395E76 /* KeychainStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainStore.swift; sourceTree = "<group>"; };
 		5E21F8218BE19256720144E1 /* ProcessInspectorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProcessInspectorTests.swift; sourceTree = "<group>"; };
@@ -100,6 +104,7 @@
 				730487794AE71A69B9D1BE3F /* Auth */,
 				EE2AC5D589D468DBC8E96B2F /* Core */,
 				36EDFE47F4CCA28A9103BE46 /* Models */,
+				B336CC83B31E5A61ED2541DD /* ShellIntegration */,
 			);
 			path = TermCast;
 			sourceTree = "<group>";
@@ -121,6 +126,15 @@
 				4728E3F39D1F26DE22395E76 /* KeychainStore.swift */,
 			);
 			path = Auth;
+			sourceTree = "<group>";
+		};
+		B336CC83B31E5A61ED2541DD /* ShellIntegration */ = {
+			isa = PBXGroup;
+			children = (
+				38C695E1B31A2025348AA3FE /* AgentSocketServer.swift */,
+				279509B566666F9A4482D811 /* PTYSession.swift */,
+			);
+			path = ShellIntegration;
 			sourceTree = "<group>";
 		};
 		CC9516DA689498AF54E6F8C7 = {
@@ -261,8 +275,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A35664270B67A4D613D106BE /* AgentSocketServer.swift in Sources */,
 				90C9BEF92D4D97F1574EBFEF /* JWTManager.swift in Sources */,
 				B5002F6C04A7F7EA47F2F537 /* KeychainStore.swift in Sources */,
+				DDE199077AE4812DAF0358AD /* PTYSession.swift in Sources */,
 				811D76AA3FB26D090AD871C8 /* ProcessInspector.swift in Sources */,
 				461657E5CBCDB2329746C916 /* RingBuffer.swift in Sources */,
 				F0DFBA7A4BFEEF6F711159BA /* Session.swift in Sources */,
