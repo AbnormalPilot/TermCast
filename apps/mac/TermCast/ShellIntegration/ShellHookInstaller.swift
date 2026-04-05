@@ -59,7 +59,7 @@ struct ShellHookInstaller {
     }
 
     private static func injectIfNeeded(line: String, into path: String) {
-        let content = (try? String(contentsOfFile: path)) ?? ""
+        let content = (try? String(contentsOfFile: path, encoding: .utf8)) ?? ""
         guard !content.contains("termcast") else { return }
         let dir = (path as NSString).deletingLastPathComponent
         try? FileManager.default.createDirectory(atPath: dir, withIntermediateDirectories: true)
