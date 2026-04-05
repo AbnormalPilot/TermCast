@@ -65,7 +65,7 @@ final class MenuBarController: NSObject {
         let pairItem = NSMenuItem(
             title: "Pair another device…",
             action: #selector(pairDevice),
-            keyEquivalent: "p"
+            keyEquivalent: ""
         )
         pairItem.target = self
         menu.addItem(pairItem)

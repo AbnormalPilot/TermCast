@@ -26,7 +26,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         broadcaster = SessionBroadcaster()
         menuBar = MenuBarController()
         menuBar.onPairRequested = { [weak self] in
-            Task { @MainActor [weak self] in self?.showQRCodeIfAvailable() }
+            Task { @MainActor in self?.showQRCodeIfAvailable() }
         }
 
         // 3. Wire registry → broadcaster → menu bar
