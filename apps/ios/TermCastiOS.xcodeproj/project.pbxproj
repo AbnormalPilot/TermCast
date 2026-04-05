@@ -1,0 +1,431 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		57398983670E9236CC2C4DD4 /* SwiftTerm in Frameworks */ = {isa = PBXBuildFile; productRef = AD67F699185B2CDEEF7BA3FB /* SwiftTerm */; };
+		607D900DBA99559026C6ADBE /* PlaceholderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2655AFDDA1AE36F3EBEA7CED /* PlaceholderTests.swift */; };
+		BED046D56B6AC1F814D35397 /* TermCastiOSApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B64D4EA6D771D5C07F7C7DE6 /* TermCastiOSApp.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		95B5FBF35565B91CDAF7F509 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 017EB2D5D165676CD214FE3C /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = E5264074929A89D6682D482A;
+			remoteInfo = TermCastiOS;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		1667B8FBC3B337795A794998 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		2655AFDDA1AE36F3EBEA7CED /* PlaceholderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceholderTests.swift; sourceTree = "<group>"; };
+		5968ABB2F95009F2298EFF28 /* TermCastiOS.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = TermCastiOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		879E94937660794111B367E9 /* TermCastiOSTests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = TermCastiOSTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		B64D4EA6D771D5C07F7C7DE6 /* TermCastiOSApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermCastiOSApp.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		590FAD59E2A2A07DE1CECCA0 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				57398983670E9236CC2C4DD4 /* SwiftTerm in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		168144CFBCC419B7FAB97FF0 /* TermCastiOS */ = {
+			isa = PBXGroup;
+			children = (
+				742B5AE43731B017E515A5BD /* App */,
+			);
+			path = TermCastiOS;
+			sourceTree = "<group>";
+		};
+		2AC4967B3FF9E024E120A2C0 = {
+			isa = PBXGroup;
+			children = (
+				168144CFBCC419B7FAB97FF0 /* TermCastiOS */,
+				EFF9CBC49A26A4EAB286B3AE /* TermCastiOSTests */,
+				9BF585447DF94298A347E485 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		742B5AE43731B017E515A5BD /* App */ = {
+			isa = PBXGroup;
+			children = (
+				1667B8FBC3B337795A794998 /* Info.plist */,
+				B64D4EA6D771D5C07F7C7DE6 /* TermCastiOSApp.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		9BF585447DF94298A347E485 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				5968ABB2F95009F2298EFF28 /* TermCastiOS.app */,
+				879E94937660794111B367E9 /* TermCastiOSTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		EFF9CBC49A26A4EAB286B3AE /* TermCastiOSTests */ = {
+			isa = PBXGroup;
+			children = (
+				2655AFDDA1AE36F3EBEA7CED /* PlaceholderTests.swift */,
+			);
+			path = TermCastiOSTests;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		A50D5A51B644CCA3B1610DA9 /* TermCastiOSTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 924600ADF9B3E28CF10D9D4B /* Build configuration list for PBXNativeTarget "TermCastiOSTests" */;
+			buildPhases = (
+				B0C5147E005608B7E5844045 /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				52465C6C6B34F6CB046468B2 /* PBXTargetDependency */,
+			);
+			name = TermCastiOSTests;
+			packageProductDependencies = (
+			);
+			productName = TermCastiOSTests;
+			productReference = 879E94937660794111B367E9 /* TermCastiOSTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		E5264074929A89D6682D482A /* TermCastiOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = AAE29EF7C7827CD9F5629435 /* Build configuration list for PBXNativeTarget "TermCastiOS" */;
+			buildPhases = (
+				3B1A75C460C17D5192C60AE7 /* Sources */,
+				590FAD59E2A2A07DE1CECCA0 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = TermCastiOS;
+			packageProductDependencies = (
+				AD67F699185B2CDEEF7BA3FB /* SwiftTerm */,
+			);
+			productName = TermCastiOS;
+			productReference = 5968ABB2F95009F2298EFF28 /* TermCastiOS.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		017EB2D5D165676CD214FE3C /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 1500;
+			};
+			buildConfigurationList = 526D664FAA7FA21CC0A825A3 /* Build configuration list for PBXProject "TermCastiOS" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				Base,
+				en,
+			);
+			mainGroup = 2AC4967B3FF9E024E120A2C0;
+			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				F14311939864EB77868C48B9 /* XCRemoteSwiftPackageReference "SwiftTerm" */,
+			);
+			preferredProjectObjectVersion = 77;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				E5264074929A89D6682D482A /* TermCastiOS */,
+				A50D5A51B644CCA3B1610DA9 /* TermCastiOSTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		3B1A75C460C17D5192C60AE7 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BED046D56B6AC1F814D35397 /* TermCastiOSApp.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B0C5147E005608B7E5844045 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				607D900DBA99559026C6ADBE /* PlaceholderTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		52465C6C6B34F6CB046468B2 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = E5264074929A89D6682D482A /* TermCastiOS */;
+			targetProxy = 95B5FBF35565B91CDAF7F509 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		5712C31AB28BED1EED525B94 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		6A67E6AD3A96EB273E01345F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.termcast.TermCastiOSTests;
+				SDKROOT = iphoneos;
+				SWIFT_VERSION = 5.1;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TermCastiOS.app/TermCastiOS";
+			};
+			name = Release;
+		};
+		78FA5A780AD2377116009AF3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.termcast.TermCastiOSTests;
+				SDKROOT = iphoneos;
+				SWIFT_VERSION = 5.1;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TermCastiOS.app/TermCastiOS";
+			};
+			name = Debug;
+		};
+		7DF5ECCE2B139872250DC414 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				INFOPLIST_FILE = TermCastiOS/App/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.termcast.ios;
+				SDKROOT = iphoneos;
+				SWIFT_VERSION = 5.1;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		C1BF4C7F8688D9DB68DD574A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"DEBUG=1",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		E07C418BFF4FEA6D454ED519 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				INFOPLIST_FILE = TermCastiOS/App/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.termcast.ios;
+				SDKROOT = iphoneos;
+				SWIFT_VERSION = 5.1;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		526D664FAA7FA21CC0A825A3 /* Build configuration list for PBXProject "TermCastiOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C1BF4C7F8688D9DB68DD574A /* Debug */,
+				5712C31AB28BED1EED525B94 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		924600ADF9B3E28CF10D9D4B /* Build configuration list for PBXNativeTarget "TermCastiOSTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				78FA5A780AD2377116009AF3 /* Debug */,
+				6A67E6AD3A96EB273E01345F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		AAE29EF7C7827CD9F5629435 /* Build configuration list for PBXNativeTarget "TermCastiOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E07C418BFF4FEA6D454ED519 /* Debug */,
+				7DF5ECCE2B139872250DC414 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		F14311939864EB77868C48B9 /* XCRemoteSwiftPackageReference "SwiftTerm" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/migueldeicaza/SwiftTerm";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.2.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		AD67F699185B2CDEEF7BA3FB /* SwiftTerm */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F14311939864EB77868C48B9 /* XCRemoteSwiftPackageReference "SwiftTerm" */;
+			productName = SwiftTerm;
+		};
+/* End XCSwiftPackageProductDependency section */
+	};
+	rootObject = 017EB2D5D165676CD214FE3C /* Project object */;
+}

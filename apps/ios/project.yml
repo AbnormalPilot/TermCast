@@ -1,0 +1,44 @@
+name: TermCastiOS
+options:
+  bundleIdPrefix: com.termcast
+  deploymentTarget:
+    iOS: "16.0"
+  xcodeVersion: "15.0"
+
+packages:
+  SwiftTerm:
+    url: https://github.com/migueldeicaza/SwiftTerm
+    from: 1.2.0
+
+targets:
+  TermCastiOS:
+    type: application
+    platform: iOS
+    sources: [TermCastiOS]
+    info:
+      path: TermCastiOS/App/Info.plist
+      properties:
+        CFBundleName: TermCastiOS
+        CFBundleIdentifier: com.termcast.ios
+        CFBundleVersion: "1"
+        CFBundleShortVersionString: "1.0.0"
+        NSCameraUsageDescription: "TermCast uses the camera to scan the QR code shown on your Mac."
+        UILaunchScreen:
+          UIColorName: ""
+    settings:
+      PRODUCT_BUNDLE_IDENTIFIER: com.termcast.ios
+      SWIFT_VERSION: 5.10
+      IPHONEOS_DEPLOYMENT_TARGET: "16.0"
+    dependencies:
+      - package: SwiftTerm
+        product: SwiftTerm
+
+  TermCastiOSTests:
+    type: bundle.unit-test
+    platform: iOS
+    sources: [TermCastiOSTests]
+    settings:
+      SWIFT_VERSION: 5.10
+      IPHONEOS_DEPLOYMENT_TARGET: "16.0"
+    dependencies:
+      - target: TermCastiOS
