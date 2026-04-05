@@ -3,9 +3,13 @@ import SwiftUI
 
 struct SessionTabView: View {
     let session: Session
-    let wsClient: WSClient
+    @ObservedObject var wsClient: WSClient
     @State private var pendingOutput: Data?
     @State private var isEnded = false
+    /// Tracks whether ring buffer replay has been requested for this session.
+    /// Set once on first appearance while connected; reset is not needed since
+    /// the view instance is kept alive for the lifetime of the tab slot.
+    @State private var didAttach = false
 
     var body: some View {
         ZStack {
@@ -22,6 +26,22 @@ struct SessionTabView: View {
                 }
             )
             .ignoresSafeArea()
+            .onAppear {
+                // Send attach if already connected and not yet replayed.
+                // If currently offline, onChange(of: wsClient.state) below
+                // will send it when the connection comes up.
+                if wsClient.state == .connected && !isEnded && !didAttach {
+                    didAttach = true
+                    wsClient.send(.attach(sessionId: session.id))
+                }
+            }
+            .onChange(of: wsClient.state) { newState in
+                // Send attach on reconnect, but only once and not for ended sessions.
+                if newState == .connected && !isEnded && !didAttach {
+                    didAttach = true
+                    wsClient.send(.attach(sessionId: session.id))
+                }
+            }
 
             if isEnded {
                 VStack {

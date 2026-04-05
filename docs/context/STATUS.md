@@ -1,8 +1,8 @@
 # TermCast — Project Status
 
 **Last Updated:** 2026-04-05  
-**Current Phase:** Complete — Phase 4 (Tailscale integration + QR pairing end-to-end)  
-**Branch:** feature/phase-4-tailscale (merging → main)
+**Current Phase:** Complete — Phase 5 (polish + error states)  
+**Branch:** feature/phase-5-polish (merging → main)
 
 ---
 
@@ -15,19 +15,18 @@
 | 2 | iOS App — onboarding, SwiftTerm, reconnect | Complete — merging to main | Plan: phase-2-ios-app.md |
 | 3 | Android App — onboarding, xterm.js WebView, reconnect | Complete — merging to main | Plan: phase-3-android-app.md |
 | 4 | Tailscale integration + QR pairing end-to-end | Complete — merging to main | Plan: phase-4-tailscale-pairing.md |
-| 5 | Polish, error states, full test coverage | Pending | |
+| 5 | Polish, error states, full test coverage | Complete — merging to main | Plan: phase-5-polish.md |
 
 ---
 
 ## Current Session Focus
 
-Phase 4 complete. All four tasks shipped:
-- T1: Mac multi-path Tailscale binary detection (Intel/ARM/App Store)
-- T2: Mac "Pair another device…" menu item
-- T3: Android AUTH_FAILED state — HTTP rejection detection, auto re-pair
-- T4: iOS authFailed state — didEverConnect heuristic, Unpair button on OfflineView
+Phase 5 complete. All three tasks shipped:
+- T1: Mac port conflict detection — tries 7681→7685, persists chosen port in UserDefaults
+- T2: iOS ring buffer replay — SessionTabView sends `attach` on first appear while connected
+- T3: Manual smoke test protocol — 9 tests in docs/context/smoke-tests.md
 
-Next: merge feature/phase-4-tailscale → main, tag v4.0-phase-4, then Phase 5 (polish + testing).
+All phases complete. Project ready for release.
 
 ---
 

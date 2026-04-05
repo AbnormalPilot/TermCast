@@ -55,8 +55,9 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         }
 
         // 5. Start WebSocket server
+        let preferredPort = UserDefaults.standard.integer(forKey: "wsPort").nonZeroOr(default: 7681)
         wsServer = WebSocketServer(
-            port: 7681,
+            preferredPort: preferredPort,
             jwtManager: jwtManager,
             registry: registry,
             broadcaster: broadcaster
@@ -66,9 +67,10 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         let ws = wsServer!
         Task {
             do {
-                let group = await ws.group
+                let group = ws.eventLoopGroup()
                 try await ss.start(group: group)
-                try await ws.start()
+                let boundPort = try await ws.start()
+                UserDefaults.standard.set(boundPort, forKey: "wsPort")
             } catch {
                 fputs("TermCast: failed to start servers: \(error)\n", stderr)
             }
@@ -181,5 +183,11 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         window.contentView = view
         window.makeKeyAndOrderFront(nil)
         NSApp.activate(ignoringOtherApps: true)
+    }
+}
+
+private extension Int {
+    func nonZeroOr(default fallback: Int) -> Int {
+        self == 0 ? fallback : self
     }
 }
