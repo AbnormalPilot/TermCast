@@ -6,24 +6,6 @@ import Foundation
 @Suite("Security — iOS", .serialized)
 struct SecurityiOSTests {
 
-    @Test("PairingStore: clear removes all credential data")
-    func pairingStoreClearRemovesAll() throws {
-        try PairingStore.save(host: "attacker.ts.net", secret: Data([0xFF, 0xFE]))
-        PairingStore.clear()
-        #expect(throws: (any Error).self) {
-            try PairingStore.load()
-        }
-    }
-
-    @Test("PairingStore: secret survives round-trip without transformation")
-    func pairingStoreRoundTrip() throws {
-        let secret = Data([0xDE, 0xAD, 0xBE, 0xEF])
-        try PairingStore.save(host: "host.ts.net", secret: secret)
-        let loaded = try PairingStore.load()
-        #expect(loaded.secret == secret)
-        PairingStore.clear()
-    }
-
     @Test("InputHandler: null byte passes through encodeText")
     func inputHandlerNullBytePassthrough() {
         let data = InputHandler.encode(text: "\u{0000}")

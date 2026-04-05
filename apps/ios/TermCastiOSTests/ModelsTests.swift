@@ -13,7 +13,7 @@ struct ModelsTests {
         """
         let decoder = JSONDecoder()
         decoder.keyDecodingStrategy = .convertFromSnakeCase
-        let session = try JSONDecoder().decode(Session.self, from: Data(json.utf8))
+        let session = try decoder.decode(Session.self, from: Data(json.utf8))
         #expect(session.shell == "zsh")
         #expect(session.cols == 80)
     }
