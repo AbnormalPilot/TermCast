@@ -15,7 +15,6 @@
 		64D77F2E7EBE6D8C3472208E /* SessionRegistry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B24F4E8279594BBEF9E0793 /* SessionRegistry.swift */; };
 		6BADE3E8250AB28021D65B6F /* RingBufferTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FA1407F9CE0C01FBFD42EC6 /* RingBufferTests.swift */; };
 		6C66A695A37278480C9B0504 /* TailscaleSetup.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEB14118A76F81A55BE6E65D /* TailscaleSetup.swift */; };
-		79633A1F672D1D5D7D5829D9 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EBEBCF20815AD1CDB2BEBA4 /* main.swift */; };
 		811D76AA3FB26D090AD871C8 /* ProcessInspector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FDE6A81A46B2436C4016E17 /* ProcessInspector.swift */; };
 		865BC838DF54FFDB1167C337 /* WSMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1475B1320A0428C3BF903558 /* WSMessage.swift */; };
 		87D427BA6CC343C7696DEE04 /* WebSocketServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFB3A738E763232BA9D8E080 /* WebSocketServer.swift */; };
@@ -64,7 +63,6 @@
 		5E21F8218BE19256720144E1 /* ProcessInspectorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProcessInspectorTests.swift; sourceTree = "<group>"; };
 		69A469CE9B4740DF8A3B2468 /* InputRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputRouter.swift; sourceTree = "<group>"; };
 		6FDE6A81A46B2436C4016E17 /* ProcessInspector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProcessInspector.swift; sourceTree = "<group>"; };
-		8EBEBCF20815AD1CDB2BEBA4 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		8F9DDF01C510442A98876EE5 /* ShellHookInstaller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShellHookInstaller.swift; sourceTree = "<group>"; };
 		A4884FCB026242F455BECE69 /* WebSocketHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebSocketHandler.swift; sourceTree = "<group>"; };
 		AA3F45E2A908E2A2B7CB3189 /* RingBuffer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RingBuffer.swift; sourceTree = "<group>"; };
@@ -153,7 +151,6 @@
 			isa = PBXGroup;
 			children = (
 				FACD78607264F49EC5490435 /* Info.plist */,
-				8EBEBCF20815AD1CDB2BEBA4 /* main.swift */,
 				B70EF66B1E375B292CCEC9EC /* TermCast-Bridging-Header.h */,
 				FC01819FA378CF2DDB75EAFE /* TermCastApp.swift */,
 			);
@@ -343,7 +340,6 @@
 				865BC838DF54FFDB1167C337 /* WSMessage.swift in Sources */,
 				A6B0459289472650E0CC3268 /* WebSocketHandler.swift in Sources */,
 				87D427BA6CC343C7696DEE04 /* WebSocketServer.swift in Sources */,
-				79633A1F672D1D5D7D5829D9 /* main.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

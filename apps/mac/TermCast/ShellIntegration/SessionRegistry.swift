@@ -7,6 +7,14 @@ actor SessionRegistry {
     var onSessionAdded: (@Sendable (Session) -> Void)?
     var onSessionRemoved: (@Sendable (SessionID) -> Void)?
 
+    func setOnSessionAdded(_ handler: @escaping @Sendable (Session) -> Void) {
+        onSessionAdded = handler
+    }
+
+    func setOnSessionRemoved(_ handler: @escaping @Sendable (SessionID) -> Void) {
+        onSessionRemoved = handler
+    }
+
     func register(_ reg: ShellRegistration) {
         let session = Session(
             pid: reg.pid,
