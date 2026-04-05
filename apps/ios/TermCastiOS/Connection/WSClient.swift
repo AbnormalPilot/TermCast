@@ -2,8 +2,8 @@ import Foundation
 import Network
 import CommonCrypto
 
-enum WSClientState {
-    case disconnected, connecting, connected, offline
+enum WSClientState: Equatable {
+    case disconnected, connecting, connected, offline, authFailed
 }
 
 final class WSClient: ObservableObject {
@@ -15,13 +15,19 @@ final class WSClient: ObservableObject {
     private let policy = ReconnectPolicy()
     private var reconnectTask: Task<Void, Never>?
     private var pingPong: PingPong?
+    /// Tracks whether the current connect() call has ever reached .ready.
+    /// Reset to false on each connect(); set to true on first .ready state.
+    /// Used to distinguish auth failures (never connected) from network drops.
+    private var didEverConnect = false
 
     func connect(host: String, secret: Data) {
+        didEverConnect = false
         let token = buildJWT(secret: secret)
         guard let url = URL(string: "wss://\(host)") else { return }
         let endpoint = NWEndpoint.url(url)
         let params = NWParameters.tls
-        if let wsOpts = params.defaultProtocolStack.applicationProtocols.first as? NWProtocolWebSocket.Options {
+        if let wsOpts = params.defaultProtocolStack.applicationProtocols.first
+            as? NWProtocolWebSocket.Options {
             wsOpts.setAdditionalHeaders([("Authorization", "Bearer \(token)")])
         } else {
             let wsOpts = NWProtocolWebSocket.Options()
@@ -47,6 +53,7 @@ final class WSClient: ObservableObject {
         connection = nil
         setState(.disconnected)
         policy.reset()
+        didEverConnect = false
     }
 
     func send(_ message: WSMessage) {
@@ -60,6 +67,7 @@ final class WSClient: ObservableObject {
     private func handleStateUpdate(_ newState: NWConnection.State, host: String, secret: Data) {
         switch newState {
         case .ready:
+            didEverConnect = true
             setState(.connected)
             policy.reset()
             pingPong = PingPong(
@@ -68,8 +76,15 @@ final class WSClient: ObservableObject {
             )
             pingPong?.start()
         case .failed, .cancelled:
-            setState(.offline)
-            scheduleReconnect(host: host, secret: secret)
+            // If the connection failed before ever reaching .ready with these credentials,
+            // surface .authFailed so the UI can show "Unpair".
+            // If a working connection dropped, use .offline + reconnect.
+            if !didEverConnect {
+                setState(.authFailed)
+            } else {
+                setState(.offline)
+                scheduleReconnect(host: host, secret: secret)
+            }
         default:
             break
         }
