@@ -16,8 +16,11 @@
 		7E5FDBF3F4A2570C496CCB16 /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79E3CE72CFD54373D6255BBA /* Session.swift */; };
 		83433A37DFE4F579AD5789A6 /* ReconnectPolicyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F64140F87E43DF38D97E29 /* ReconnectPolicyTests.swift */; };
 		9354AA6CE8FED9F8568094EF /* ReconnectPolicy.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC5BE25B8D8A2C39234B2BB9 /* ReconnectPolicy.swift */; };
+		A06D408E72B82CB2C02F1AD1 /* InputHandlerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6F6C37C8027AA2F07B125ED /* InputHandlerTests.swift */; };
 		BED046D56B6AC1F814D35397 /* TermCastiOSApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B64D4EA6D771D5C07F7C7DE6 /* TermCastiOSApp.swift */; };
+		C6A492693ADC5D4A26BC3377 /* InputHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76E73B005BEB69330B33837C /* InputHandler.swift */; };
 		E2A4EE50453D5DB85DDB54DB /* PairingStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = A511B4DAAE891FD9EB4E3019 /* PairingStore.swift */; };
+		FAEB3E7BFC3ECCD9F16BF2E6 /* SessionStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9EDD2422D34061A7DBE52E0 /* SessionStore.swift */; };
 		FD60DBCCDFD83348C7E6F83B /* PingPong.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37625804785F76F2608EA90C /* PingPong.swift */; };
 /* End PBXBuildFile section */
 
@@ -39,6 +42,7 @@
 		3B625BED1C5627C2A888AF90 /* WSClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSClient.swift; sourceTree = "<group>"; };
 		55F64140F87E43DF38D97E29 /* ReconnectPolicyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReconnectPolicyTests.swift; sourceTree = "<group>"; };
 		5968ABB2F95009F2298EFF28 /* TermCastiOS.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = TermCastiOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		76E73B005BEB69330B33837C /* InputHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputHandler.swift; sourceTree = "<group>"; };
 		79E3CE72CFD54373D6255BBA /* Session.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Session.swift; sourceTree = "<group>"; };
 		879E94937660794111B367E9 /* TermCastiOSTests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = TermCastiOSTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		92D77CBA29DCB87A58E847CB /* ModelsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelsTests.swift; sourceTree = "<group>"; };
@@ -46,6 +50,8 @@
 		A511B4DAAE891FD9EB4E3019 /* PairingStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PairingStore.swift; sourceTree = "<group>"; };
 		B64D4EA6D771D5C07F7C7DE6 /* TermCastiOSApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermCastiOSApp.swift; sourceTree = "<group>"; };
 		CC5BE25B8D8A2C39234B2BB9 /* ReconnectPolicy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReconnectPolicy.swift; sourceTree = "<group>"; };
+		F6F6C37C8027AA2F07B125ED /* InputHandlerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputHandlerTests.swift; sourceTree = "<group>"; };
+		F9EDD2422D34061A7DBE52E0 /* SessionStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionStore.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -75,6 +81,8 @@
 				0EB15034491BBF95130FA3A8 /* Auth */,
 				ADF0BB8A0676B9BD13E8387D /* Connection */,
 				2CD344D4F61AD105DAD5CBE9 /* Models */,
+				B920C75E41C33303ED8FFD6D /* Sessions */,
+				F4E0BB0D34E3D730CDB69977 /* Terminal */,
 			);
 			path = TermCastiOS;
 			sourceTree = "<group>";
@@ -125,15 +133,32 @@
 			path = Connection;
 			sourceTree = "<group>";
 		};
+		B920C75E41C33303ED8FFD6D /* Sessions */ = {
+			isa = PBXGroup;
+			children = (
+				F9EDD2422D34061A7DBE52E0 /* SessionStore.swift */,
+			);
+			path = Sessions;
+			sourceTree = "<group>";
+		};
 		EFF9CBC49A26A4EAB286B3AE /* TermCastiOSTests */ = {
 			isa = PBXGroup;
 			children = (
+				F6F6C37C8027AA2F07B125ED /* InputHandlerTests.swift */,
 				92D77CBA29DCB87A58E847CB /* ModelsTests.swift */,
 				1422691F1E2755F93DF0F2EF /* PairingStoreTests.swift */,
 				2655AFDDA1AE36F3EBEA7CED /* PlaceholderTests.swift */,
 				55F64140F87E43DF38D97E29 /* ReconnectPolicyTests.swift */,
 			);
 			path = TermCastiOSTests;
+			sourceTree = "<group>";
+		};
+		F4E0BB0D34E3D730CDB69977 /* Terminal */ = {
+			isa = PBXGroup;
+			children = (
+				76E73B005BEB69330B33837C /* InputHandler.swift */,
+			);
+			path = Terminal;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -213,10 +238,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C6A492693ADC5D4A26BC3377 /* InputHandler.swift in Sources */,
 				E2A4EE50453D5DB85DDB54DB /* PairingStore.swift in Sources */,
 				FD60DBCCDFD83348C7E6F83B /* PingPong.swift in Sources */,
 				9354AA6CE8FED9F8568094EF /* ReconnectPolicy.swift in Sources */,
 				7E5FDBF3F4A2570C496CCB16 /* Session.swift in Sources */,
+				FAEB3E7BFC3ECCD9F16BF2E6 /* SessionStore.swift in Sources */,
 				BED046D56B6AC1F814D35397 /* TermCastiOSApp.swift in Sources */,
 				39E846EF52174071449EFE96 /* WSClient.swift in Sources */,
 				756D1A5E6622A0FE3FA1FED8 /* WSMessage.swift in Sources */,
@@ -227,6 +254,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A06D408E72B82CB2C02F1AD1 /* InputHandlerTests.swift in Sources */,
 				288805CCA875289FF7ADBE8D /* ModelsTests.swift in Sources */,
 				560A2C25A657F07FDC9F73AE /* PairingStoreTests.swift in Sources */,
 				607D900DBA99559026C6ADBE /* PlaceholderTests.swift in Sources */,
