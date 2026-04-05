@@ -41,6 +41,16 @@ Next: merge feature/build → main, then begin Phase 2 (iOS App).
 
 ---
 
+### Testing Infrastructure (completed 2026-04-05)
+- Mac: JWTManager MC/DC (8 vectors), RingBuffer MC/DC, KeychainStore, SessionBroadcaster, WSMessage, Security, Performance tests
+- iOS: InputHandler MC/DC, ReconnectPolicy MC/DC, SessionStore (10 tests), WSMessage, Security tests; XCUITest onboarding (3 tests)
+- Android: InputHandler MC/DC, ReconnectPolicy MC/DC, SessionViewModel (Turbine, 10 tests), WSMessage, XtermBridge, Security, Performance; Compose UI tests (6 tests)
+- Shared: Cypress e2e for xterm.js bundle (11 tests)
+- CI/CD: GitHub Actions for Mac, iOS, Android; coverage report workflow
+- Regression manifest: 12 bugs mapped to catching tests
+
+---
+
 ## Open Questions
 
 None — all resolved in design phase.
