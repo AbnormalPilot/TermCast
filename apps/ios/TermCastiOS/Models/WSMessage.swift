@@ -7,12 +7,12 @@ enum WSMessageType: String, Codable, Equatable {
 
 struct WSMessage: Codable {
     let type: WSMessageType
-    var sessions: [Session]?
-    var session: Session?
-    var sessionId: String?
-    var data: String?
-    var cols: Int?
-    var rows: Int?
+    var sessions: [Session]? = nil
+    var session: Session? = nil
+    var sessionId: String? = nil
+    var data: String? = nil
+    var cols: Int? = nil
+    var rows: Int? = nil
 
     static func attach(sessionId: SessionID) -> WSMessage {
         WSMessage(type: .attach, sessionId: sessionId.uuidString)

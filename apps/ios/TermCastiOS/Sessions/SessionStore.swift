@@ -1,7 +1,7 @@
 // apps/ios/TermCastiOS/Sessions/SessionStore.swift
 import Foundation
 
-enum SessionState {
+enum SessionState: Equatable {
     case active
     case ended   // session closed, history preserved for scroll
 }

@@ -64,4 +64,26 @@ struct InputHandlerTests {
         let bytes = InputHandler.encode(ctrl: "1")
         #expect(bytes == Data())
     }
+
+    // MARK: - MC/DC: encodeCtrl guard — ascii >= 97 && ascii <= 122
+
+    @Test("MC/DC: ctrl 'z' (ascii=122, upper boundary — both conditions true)")
+    func mcdc_ctrlZ_upperBoundary() {
+        #expect(InputHandler.encode(ctrl: "z") == Data([0x1a]))
+    }
+
+    @Test("MC/DC: ctrl backtick (ascii=96, one below lower — first condition false)")
+    func mcdc_backtickBelow97_failsFirstCondition() {
+        #expect(InputHandler.encode(ctrl: "`") == Data())
+    }
+
+    @Test("MC/DC: ctrl brace (ascii=123, one above upper — second condition false)")
+    func mcdc_braceAbove122_failsSecondCondition() {
+        #expect(InputHandler.encode(ctrl: "{") == Data())
+    }
+
+    @Test("MC/DC: ctrl uppercase 'C' — lowercased to 'c' → 0x03")
+    func mcdc_ctrlUppercaseC() {
+        #expect(InputHandler.encode(ctrl: "C") == Data([0x03]))
+    }
 }
