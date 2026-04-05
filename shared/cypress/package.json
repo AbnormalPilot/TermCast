@@ -1,0 +1,12 @@
+{
+  "name": "termcast-xterm-tests",
+  "version": "1.0.0",
+  "description": "Cypress e2e tests for the TermCast xterm.js WebView bundle",
+  "scripts": {
+    "test": "cypress run",
+    "test:open": "cypress open"
+  },
+  "devDependencies": {
+    "cypress": "^13.10.0"
+  }
+}
