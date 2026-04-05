@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { background: #000; overflow: hidden; }
+    #terminal { width: 100vw; height: 100vh; }
+    .xterm-viewport::-webkit-scrollbar { display: none; }
+  </style>
+  <link rel="stylesheet" href="xterm.css">
+</head>
+<body>
+  <div id="terminal"></div>
+  <script src="xterm.js"></script>
+  <script src="xterm-addon-fit.js"></script>
+  <script>
+    const term = new Terminal({
+      fontFamily: 'Menlo, Consolas, "DejaVu Sans Mono", monospace',
+      fontSize: 13,
+      theme: { background: '#000000', foreground: '#ffffff' },
+      allowProposedApi: true,
+      scrollback: 5000
+    });
+
+    const fitAddon = new FitAddon.FitAddon();
+    term.loadAddon(fitAddon);
+    term.open(document.getElementById('terminal'));
+    fitAddon.fit();
+
+    term.onData(data => {
+      if (window.TermCastBridge) {
+        TermCastBridge.onInput(btoa(unescape(encodeURIComponent(data))));
+      }
+    });
+
+    term.onResize(({ cols, rows }) => {
+      if (window.TermCastBridge) {
+        TermCastBridge.onResize(cols, rows);
+      }
+    });
+
+    window.addEventListener('resize', () => fitAddon.fit());
+
+    window.termWrite = function(base64) {
+      try {
+        const bytes = atob(base64);
+        const arr = new Uint8Array(bytes.length);
+        for (let i = 0; i < bytes.length; i++) arr[i] = bytes.charCodeAt(i);
+        term.write(arr);
+      } catch(e) { console.error('termWrite error', e); }
+    };
+
+    window.termResize = function(cols, rows) {
+      term.resize(cols, rows);
+    };
+
+    if (window.TermCastBridge) TermCastBridge.onReady();
+  </script>
+</body>
+</html>
