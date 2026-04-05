@@ -22,6 +22,11 @@ struct SessionTabView: View {
                 }
             )
             .ignoresSafeArea()
+            .onAppear {
+                // Request ring buffer replay — Mac replays the last 64KB of output
+                // so the terminal isn't blank when the view first appears.
+                wsClient.send(.attach(sessionId: session.id))
+            }
 
             if isEnded {
                 VStack {
