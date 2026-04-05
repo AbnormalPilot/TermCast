@@ -81,6 +81,16 @@ See `docs/context/` — session logs, decisions, smoke tests, open questions.
 
 ## Git Conventions
 
+### Commit Discipline
+
+**Commit early, commit often.** Every meaningful unit of work gets its own commit:
+- Each new file or type
+- Each bug fix or quality fix
+- Each test addition
+- Each config/dependency change
+
+Do not batch unrelated changes into one commit. Prefer 10 small commits over 1 large one. This keeps history readable and makes bisect/revert safe.
+
 ### Commit Format
 
 ```
