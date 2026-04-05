@@ -47,6 +47,17 @@ jobs:
             -destination "platform=iOS Simulator,id=$SIMULATOR" \
             2>&1 | grep -E "TEST FAILED|BUILD FAILED" && exit 1 || exit 0
 
+      - name: Run UI Tests
+        run: |
+          cd apps/ios
+          SIMULATOR=$(xcrun simctl list devices available | grep "iPhone 16 " | head -1 | grep -oE '[A-F0-9-]{36}' || xcrun simctl list devices available | grep "iPhone 15 " | head -1 | grep -oE '[A-F0-9-]{36}')
+          xcodebuild test \
+            -scheme TermCastiOS \
+            -destination "platform=iOS Simulator,id=$SIMULATOR" \
+            -only-testing:TermCastiOSUITests \
+            2>&1 | grep -E "error:|TEST|passed|FAILED"
+        continue-on-error: true
+
       - name: Upload test results
         if: always()
         uses: actions/upload-artifact@v4

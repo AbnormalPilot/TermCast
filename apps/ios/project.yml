@@ -43,3 +43,16 @@ targets:
       GENERATE_INFOPLIST_FILE: YES
     dependencies:
       - target: TermCastiOS
+
+  TermCastiOSUITests:
+    type: bundle.ui-testing
+    platform: iOS
+    sources: [TermCastiOSUITests]
+    deploymentTarget: "16.0"
+    settings:
+      SWIFT_VERSION: "5.10"
+      IPHONEOS_DEPLOYMENT_TARGET: "16.0"
+      GENERATE_INFOPLIST_FILE: YES
+      TEST_TARGET_NAME: TermCastiOS
+    dependencies:
+      - target: TermCastiOS

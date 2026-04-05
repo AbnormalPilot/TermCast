@@ -18,7 +18,10 @@ struct TermCastiOSApp: App {
                     default: break
                     }
                 }
-                .task { connect() }
+                .task {
+                    resetForUITestIfNeeded()
+                    connect()
+                }
         }
     }
 
@@ -38,6 +41,12 @@ struct TermCastiOSApp: App {
         } else {
             SessionListView(sessionStore: sessionStore, wsClient: wsClient)
         }
+    }
+
+    private func resetForUITestIfNeeded() {
+        guard CommandLine.arguments.contains("--uitest-reset-credentials") else { return }
+        PairingStore.clear()
+        isOnboarding = true
     }
 
     private func connect() {
