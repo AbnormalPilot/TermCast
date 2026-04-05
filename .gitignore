@@ -1,1 +1,44 @@
+# macOS
+.DS_Store
+*.xcuserstate
+xcuserdata/
+*.xcworkspace/xcuserdata/
+.build/
+DerivedData/
+
+# iOS / macOS Xcode
+*.ipa
+*.dSYM.zip
+*.dSYM
+
+# Android
+*.iml
+.gradle/
+local.properties
+.idea/
+*.apk
+*.aab
+build/
+captures/
+.externalNativeBuild/
+.cxx/
+
+# Swift
+.swiftpm/
+*.o
+*.d
+
+# Node
+node_modules/
+
+# TermCast runtime (not committed)
+/tmp/termcast/
+
+# Secrets
+*.p12
+*.mobileprovision
+GoogleService-Info.plist
+google-services.json
+
+# Worktrees
 .worktrees/
