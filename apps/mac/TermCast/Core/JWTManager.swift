@@ -47,11 +47,10 @@ final class JWTManager: Sendable {
         let parts = token.split(separator: ".", omittingEmptySubsequences: false).map(String.init)
         guard parts.count == 3 else { return false }
 
-        // 1. Verify signature
+        // 1. Verify signature (constant-time via CryptoKit)
         let message = "\(parts[0]).\(parts[1])"
-        let expected = HMAC<SHA256>.authenticationCode(for: Data(message.utf8), using: key)
-        guard let actual = Data(base64URLDecoded: parts[2]) else { return false }
-        guard Data(expected) == actual else { return false }
+        guard let sigData = Data(base64URLDecoded: parts[2]) else { return false }
+        guard HMAC<SHA256>.isValidAuthenticationCode(sigData, authenticating: Data(message.utf8), using: key) else { return false }
 
         // 2. Verify expiry
         guard let payloadData = Data(base64URLDecoded: parts[1]),
