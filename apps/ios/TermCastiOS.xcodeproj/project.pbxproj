@@ -7,9 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		288805CCA875289FF7ADBE8D /* ModelsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92D77CBA29DCB87A58E847CB /* ModelsTests.swift */; };
+		560A2C25A657F07FDC9F73AE /* PairingStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1422691F1E2755F93DF0F2EF /* PairingStoreTests.swift */; };
 		57398983670E9236CC2C4DD4 /* SwiftTerm in Frameworks */ = {isa = PBXBuildFile; productRef = AD67F699185B2CDEEF7BA3FB /* SwiftTerm */; };
 		607D900DBA99559026C6ADBE /* PlaceholderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2655AFDDA1AE36F3EBEA7CED /* PlaceholderTests.swift */; };
+		756D1A5E6622A0FE3FA1FED8 /* WSMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AF02207E210D4036BB2AAFD /* WSMessage.swift */; };
+		7E5FDBF3F4A2570C496CCB16 /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79E3CE72CFD54373D6255BBA /* Session.swift */; };
 		BED046D56B6AC1F814D35397 /* TermCastiOSApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B64D4EA6D771D5C07F7C7DE6 /* TermCastiOSApp.swift */; };
+		E2A4EE50453D5DB85DDB54DB /* PairingStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = A511B4DAAE891FD9EB4E3019 /* PairingStore.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -23,10 +28,15 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1422691F1E2755F93DF0F2EF /* PairingStoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PairingStoreTests.swift; sourceTree = "<group>"; };
 		1667B8FBC3B337795A794998 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		2655AFDDA1AE36F3EBEA7CED /* PlaceholderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceholderTests.swift; sourceTree = "<group>"; };
 		5968ABB2F95009F2298EFF28 /* TermCastiOS.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = TermCastiOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		79E3CE72CFD54373D6255BBA /* Session.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Session.swift; sourceTree = "<group>"; };
 		879E94937660794111B367E9 /* TermCastiOSTests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = TermCastiOSTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		92D77CBA29DCB87A58E847CB /* ModelsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelsTests.swift; sourceTree = "<group>"; };
+		9AF02207E210D4036BB2AAFD /* WSMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSMessage.swift; sourceTree = "<group>"; };
+		A511B4DAAE891FD9EB4E3019 /* PairingStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PairingStore.swift; sourceTree = "<group>"; };
 		B64D4EA6D771D5C07F7C7DE6 /* TermCastiOSApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermCastiOSApp.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -42,10 +52,20 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0EB15034491BBF95130FA3A8 /* Auth */ = {
+			isa = PBXGroup;
+			children = (
+				A511B4DAAE891FD9EB4E3019 /* PairingStore.swift */,
+			);
+			path = Auth;
+			sourceTree = "<group>";
+		};
 		168144CFBCC419B7FAB97FF0 /* TermCastiOS */ = {
 			isa = PBXGroup;
 			children = (
 				742B5AE43731B017E515A5BD /* App */,
+				0EB15034491BBF95130FA3A8 /* Auth */,
+				2CD344D4F61AD105DAD5CBE9 /* Models */,
 			);
 			path = TermCastiOS;
 			sourceTree = "<group>";
@@ -57,6 +77,15 @@
 				EFF9CBC49A26A4EAB286B3AE /* TermCastiOSTests */,
 				9BF585447DF94298A347E485 /* Products */,
 			);
+			sourceTree = "<group>";
+		};
+		2CD344D4F61AD105DAD5CBE9 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				79E3CE72CFD54373D6255BBA /* Session.swift */,
+				9AF02207E210D4036BB2AAFD /* WSMessage.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 		742B5AE43731B017E515A5BD /* App */ = {
@@ -80,6 +109,8 @@
 		EFF9CBC49A26A4EAB286B3AE /* TermCastiOSTests */ = {
 			isa = PBXGroup;
 			children = (
+				92D77CBA29DCB87A58E847CB /* ModelsTests.swift */,
+				1422691F1E2755F93DF0F2EF /* PairingStoreTests.swift */,
 				2655AFDDA1AE36F3EBEA7CED /* PlaceholderTests.swift */,
 			);
 			path = TermCastiOSTests;
@@ -162,7 +193,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E2A4EE50453D5DB85DDB54DB /* PairingStore.swift in Sources */,
+				7E5FDBF3F4A2570C496CCB16 /* Session.swift in Sources */,
 				BED046D56B6AC1F814D35397 /* TermCastiOSApp.swift in Sources */,
+				756D1A5E6622A0FE3FA1FED8 /* WSMessage.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -170,6 +204,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				288805CCA875289FF7ADBE8D /* ModelsTests.swift in Sources */,
+				560A2C25A657F07FDC9F73AE /* PairingStoreTests.swift in Sources */,
 				607D900DBA99559026C6ADBE /* PlaceholderTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -245,6 +281,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -263,6 +300,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

@@ -40,5 +40,6 @@ targets:
     settings:
       SWIFT_VERSION: 5.10
       IPHONEOS_DEPLOYMENT_TARGET: "16.0"
+      GENERATE_INFOPLIST_FILE: YES
     dependencies:
       - target: TermCastiOS
