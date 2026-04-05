@@ -21,6 +21,11 @@ final class WSClient: ObservableObject {
     private var didEverConnect = false
 
     func connect(host: String, secret: Data) {
+        reconnectTask?.cancel()
+        pingPong?.stop()
+        connection?.stateUpdateHandler = nil   // teardown old connection
+        connection?.cancel()
+        connection = nil
         didEverConnect = false
         let token = buildJWT(secret: secret)
         guard let url = URL(string: "wss://\(host)") else { return }
@@ -49,6 +54,7 @@ final class WSClient: ObservableObject {
     func disconnect() {
         reconnectTask?.cancel()
         pingPong?.stop()
+        connection?.stateUpdateHandler = nil   // prevent spurious .cancelled → .authFailed
         connection?.cancel()
         connection = nil
         setState(.disconnected)
@@ -71,7 +77,7 @@ final class WSClient: ObservableObject {
             setState(.connected)
             policy.reset()
             pingPong = PingPong(
-                onSendPing: { [weak self] in self?.send(.pong()) },
+                onSendPing: { /* client does not initiate pings */ },
                 onTimeout: { [weak self] in self?.scheduleReconnect(host: host, secret: secret) }
             )
             pingPong?.start()
@@ -95,7 +101,10 @@ final class WSClient: ObservableObject {
             if error != nil { return }
             if let data, let text = String(data: data, encoding: .utf8),
                let msg = WSMessage.from(json: text) {
-                DispatchQueue.main.async { self?.onMessage?(msg) }
+                DispatchQueue.main.async {
+                    if msg.type == .ping { self?.pingPong?.didReceivePong() }
+                    self?.onMessage?(msg)
+                }
             }
             self?.receiveLoop(conn)
         }

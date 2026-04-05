@@ -27,4 +27,24 @@ struct WSClientStateTests {
         client.disconnect()
         #expect(client.state == .disconnected)
     }
+
+    @Test("disconnect() state is disconnected, not authFailed")
+    func disconnectDoesNotProduceAuthFailed() {
+        let client = WSClient()
+        client.connect(host: "invalid.host.termcast.test", secret: Data(repeating: 0, count: 32))
+        client.disconnect()
+        // After explicit disconnect, state MUST be .disconnected — never .authFailed
+        #expect(client.state == .disconnected)
+        #expect(client.state != .authFailed)
+    }
+
+    @Test("connect() cancels prior connection — state starts as connecting")
+    func reconnectStartsFresh() {
+        let client = WSClient()
+        client.connect(host: "invalid.host.termcast.test", secret: Data(repeating: 0, count: 32))
+        // Second connect() should teardown old and start fresh
+        client.connect(host: "invalid.host.termcast.test", secret: Data(repeating: 0, count: 32))
+        #expect(client.state == .connecting)
+        client.disconnect()
+    }
 }
