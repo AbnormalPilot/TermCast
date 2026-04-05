@@ -5,27 +5,27 @@ import android.webkit.WebView
 
 /** Bidirectional bridge between Kotlin and xterm.js running in WebView. */
 class XtermBridge(
-    private val onInput: (ByteArray) -> Unit,
-    private val onResize: (Int, Int) -> Unit,
-    private val onReady: () -> Unit
+    private val onInputCallback: (ByteArray) -> Unit,
+    private val onResizeCallback: (Int, Int) -> Unit,
+    private val onReadyCallback: () -> Unit
 ) {
     /** Called by xterm.js when the user types — base64-encoded bytes. */
     @JavascriptInterface
     fun onInput(base64: String) {
         val bytes = android.util.Base64.decode(base64, android.util.Base64.DEFAULT)
-        onInput(bytes)
+        onInputCallback(bytes)
     }
 
     /** Called by xterm.js when the terminal is resized. */
     @JavascriptInterface
     fun onResize(cols: Int, rows: Int) {
-        onResize(cols, rows)
+        onResizeCallback(cols, rows)
     }
 
     /** Called by xterm.js once the terminal is fully initialised. */
     @JavascriptInterface
     fun onReady() {
-        onReady()
+        onReadyCallback()
     }
 }
 

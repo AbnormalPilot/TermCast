@@ -11,23 +11,23 @@ import javax.crypto.spec.SecretKeySpec
 
 enum class ConnectionState { DISCONNECTED, CONNECTING, CONNECTED, OFFLINE }
 
-class WSClient(private val scope: CoroutineScope) {
+class WSClient(private val scope: CoroutineScope) : WSClientInterface {
     private val client = OkHttpClient.Builder()
         .readTimeout(0, java.util.concurrent.TimeUnit.MILLISECONDS)
         .build()
 
     private val _state = MutableStateFlow(ConnectionState.DISCONNECTED)
-    val state: StateFlow<ConnectionState> = _state.asStateFlow()
+    override val state: StateFlow<ConnectionState> = _state.asStateFlow()
 
     private val _messages = MutableSharedFlow<WSMessageEnvelope>()
-    val messages: SharedFlow<WSMessageEnvelope> = _messages.asSharedFlow()
+    override val messages: SharedFlow<WSMessageEnvelope> = _messages.asSharedFlow()
 
     private var socket: WebSocket? = null
     private val policy = ReconnectPolicy()
     private var pingPong: PingPong? = null
     private var reconnectJob: Job? = null
 
-    fun connect(creds: PairingCredentials) {
+    override fun connect(creds: PairingCredentials) {
         _state.value = ConnectionState.CONNECTING
         val token = buildJWT(creds.secret)
         val request = Request.Builder()
@@ -65,9 +65,9 @@ class WSClient(private val scope: CoroutineScope) {
         })
     }
 
-    fun send(json: String) { socket?.send(json) }
+    override fun send(json: String) { socket?.send(json) }
 
-    fun disconnect() {
+    override fun disconnect() {
         reconnectJob?.cancel()
         pingPong?.stop()
         socket?.cancel()

@@ -58,9 +58,9 @@ fun TerminalScreen(
                     settings.domStorageEnabled = true
                     webViewClient = WebViewClient()
                     val bridge = XtermBridge(
-                        onInput = onInput,
-                        onResize = onResize,
-                        onReady = { isReady = true }
+                        onInputCallback = onInput,
+                        onResizeCallback = onResize,
+                        onReadyCallback = { isReady = true }
                     )
                     addJavascriptInterface(bridge, "TermCastBridge")
                     loadUrl("file:///android_asset/xterm/index.html")

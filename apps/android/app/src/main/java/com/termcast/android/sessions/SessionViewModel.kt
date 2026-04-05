@@ -12,7 +12,7 @@ data class SessionState(
     val isEnded: Boolean = false
 )
 
-class SessionViewModel(private val wsClient: WSClient) : ViewModel() {
+class SessionViewModel(private val wsClient: WSClientInterface) : ViewModel() {
     private val _sessions = MutableStateFlow<List<SessionState>>(emptyList())
     val sessions: StateFlow<List<SessionState>> = _sessions.asStateFlow()
 
