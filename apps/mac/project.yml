@@ -23,6 +23,7 @@ targets:
     settings:
       PRODUCT_BUNDLE_IDENTIFIER: com.termcast.mac
       SWIFT_VERSION: 5.10
+      SWIFT_OBJC_BRIDGING_HEADER: TermCast/App/TermCast-Bridging-Header.h
     dependencies:
       - package: swift-nio
         product: NIOCore
