@@ -68,4 +68,7 @@ dependencies {
     testImplementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.7.0")
     testImplementation("androidx.arch.core:core-testing:2.2.0")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
+    androidTestImplementation(platform("androidx.compose:compose-bom:2024.04.00"))
+    androidTestImplementation("androidx.compose.ui:ui-test-junit4")
+    debugImplementation("androidx.compose.ui:ui-test-manifest")
 }
