@@ -9,7 +9,7 @@ import okhttp3.*
 import javax.crypto.Mac
 import javax.crypto.spec.SecretKeySpec
 
-enum class ConnectionState { DISCONNECTED, CONNECTING, CONNECTED, OFFLINE }
+enum class ConnectionState { DISCONNECTED, CONNECTING, CONNECTED, OFFLINE, AUTH_FAILED }
 
 class WSClient(private val scope: CoroutineScope) : WSClientInterface {
     private val client = OkHttpClient.Builder()
@@ -26,8 +26,10 @@ class WSClient(private val scope: CoroutineScope) : WSClientInterface {
     private val policy = ReconnectPolicy()
     private var pingPong: PingPong? = null
     private var reconnectJob: Job? = null
+    private var didEverConnect = false
 
     override fun connect(creds: PairingCredentials) {
+        didEverConnect = false
         _state.value = ConnectionState.CONNECTING
         val token = buildJWT(creds.secret)
         val request = Request.Builder()
@@ -37,6 +39,7 @@ class WSClient(private val scope: CoroutineScope) : WSClientInterface {
 
         socket = client.newWebSocket(request, object : WebSocketListener() {
             override fun onOpen(ws: WebSocket, response: Response) {
+                didEverConnect = true
                 _state.value = ConnectionState.CONNECTED
                 policy.reset()
                 pingPong = PingPong(
@@ -52,9 +55,15 @@ class WSClient(private val scope: CoroutineScope) : WSClientInterface {
             }
 
             override fun onFailure(ws: WebSocket, t: Throwable, response: Response?) {
-                _state.value = ConnectionState.OFFLINE
                 pingPong?.stop()
-                scheduleReconnect(creds)
+                // response != null means the server replied (HTTP reached server) but upgrade failed.
+                // If we never connected with these creds, treat as auth failure.
+                if (!didEverConnect && response != null) {
+                    _state.value = ConnectionState.AUTH_FAILED
+                } else {
+                    _state.value = ConnectionState.OFFLINE
+                    scheduleReconnect(creds)
+                }
             }
 
             override fun onClosed(ws: WebSocket, code: Int, reason: String) {
@@ -72,6 +81,7 @@ class WSClient(private val scope: CoroutineScope) : WSClientInterface {
         pingPong?.stop()
         socket?.cancel()
         socket = null
+        didEverConnect = false
         _state.value = ConnectionState.DISCONNECTED
         policy.reset()
     }

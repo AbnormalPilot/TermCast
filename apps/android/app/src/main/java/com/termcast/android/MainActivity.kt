@@ -53,11 +53,23 @@ private fun AppNavigation(
     var isPaired by remember { mutableStateOf(pairingRepo.hasCredentials()) }
     val connectionState by wsClient.state.collectAsState()
 
+    // AUTH_FAILED: stale JWT — clear credentials and force re-pairing.
+    LaunchedEffect(connectionState) {
+        if (connectionState == ConnectionState.AUTH_FAILED) {
+            pairingRepo.clear()
+            wsClient.disconnect()
+            isPaired = false
+        }
+    }
+
     when {
         !isPaired -> QRScanScreen { host, secretHex ->
             pairingRepo.save(host, secretHex)
             pairingRepo.load()?.let { creds -> wsClient.connect(creds) }
             isPaired = true
+        }
+        connectionState == ConnectionState.AUTH_FAILED -> {
+            // Handled by LaunchedEffect above — renders briefly before isPaired resets.
         }
         connectionState == ConnectionState.OFFLINE -> OfflineScreen {
             pairingRepo.load()?.let { creds -> wsClient.connect(creds) }
