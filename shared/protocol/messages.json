@@ -1,0 +1,76 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "TermCast WebSocket Protocol",
+  "version": "1.0.0",
+  "description": "All messages are JSON text frames. Terminal output bytes are base64-encoded.",
+
+  "Session": {
+    "type": "object",
+    "required": ["id", "pid", "tty", "shell", "termApp", "cols", "rows", "isActive"],
+    "properties": {
+      "id":      { "type": "string", "format": "uuid" },
+      "pid":     { "type": "integer" },
+      "tty":     { "type": "string", "example": "ttys003" },
+      "shell":   { "type": "string", "example": "zsh" },
+      "termApp": { "type": "string", "example": "iTerm2" },
+      "cols":    { "type": "integer", "default": 80 },
+      "rows":    { "type": "integer", "default": 24 },
+      "isActive":{ "type": "boolean" }
+    }
+  },
+
+  "ServerMessages": {
+    "sessions": {
+      "description": "Sent immediately after successful WS connection",
+      "fields": { "type": "sessions", "sessions": "[Session]" }
+    },
+    "session_opened": {
+      "description": "New shell registered with the agent",
+      "fields": { "type": "session_opened", "session": "Session" }
+    },
+    "session_closed": {
+      "description": "Shell exited or pipe closed",
+      "fields": { "type": "session_closed", "sessionId": "uuid" }
+    },
+    "output": {
+      "description": "Terminal bytes from a session",
+      "fields": { "type": "output", "sessionId": "uuid", "data": "base64" }
+    },
+    "resize": {
+      "description": "Terminal dimensions changed on Mac side",
+      "fields": { "type": "resize", "sessionId": "uuid", "cols": "int", "rows": "int" }
+    },
+    "ping": {
+      "description": "Keepalive sent every 5 seconds",
+      "fields": { "type": "ping" }
+    }
+  },
+
+  "ClientMessages": {
+    "attach": {
+      "description": "Subscribe to a session. Triggers ring-buffer replay before live stream.",
+      "fields": { "type": "attach", "sessionId": "uuid" }
+    },
+    "input": {
+      "description": "Keystrokes to inject into the session",
+      "fields": { "type": "input", "sessionId": "uuid", "data": "base64" }
+    },
+    "resize": {
+      "description": "Mobile viewport size changed; Mac sends SIGWINCH to shell",
+      "fields": { "type": "resize", "sessionId": "uuid", "cols": "int", "rows": "int" }
+    },
+    "pong": {
+      "description": "Response to server ping",
+      "fields": { "type": "pong" }
+    }
+  },
+
+  "Connection": {
+    "url": "wss://{tailscale-hostname}",
+    "auth": "Authorization: Bearer {JWT}",
+    "jwtAlgorithm": "HS256",
+    "jwtExpiry": "30 days",
+    "pingInterval": "5s",
+    "reconnectBackoff": "1s, 2s, 4s, 8s, 16s, 32s, 60s (cap)"
+  }
+}

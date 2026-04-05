@@ -1,0 +1,53 @@
+name: TermCast
+options:
+  bundleIdPrefix: com.termcast
+  deploymentTarget:
+    macOS: "14.0"
+  xcodeVersion: "15.0"
+
+packages:
+  swift-nio:
+    url: https://github.com/apple/swift-nio.git
+    from: 2.65.0
+
+targets:
+  TermCast:
+    type: application
+    platform: macOS
+    sources: [TermCast]
+    info:
+      path: TermCast/App/Info.plist
+      properties:
+        LSUIElement: true
+        NSPrincipalClass: NSApplication
+    settings:
+      PRODUCT_BUNDLE_IDENTIFIER: com.termcast.mac
+      SWIFT_VERSION: 5.10
+      SWIFT_OBJC_BRIDGING_HEADER: TermCast/App/TermCast-Bridging-Header.h
+    dependencies:
+      - package: swift-nio
+        product: NIOCore
+      - package: swift-nio
+        product: NIOHTTP1
+      - package: swift-nio
+        product: NIOWebSocket
+      - package: swift-nio
+        product: NIOPosix
+
+  TermCastHook:
+    type: tool
+    platform: macOS
+    sources: [TermCastHook]
+    settings:
+      PRODUCT_BUNDLE_IDENTIFIER: com.termcast.hook
+      SWIFT_VERSION: 5.10
+
+  TermCastTests:
+    type: bundle.unit-test
+    platform: macOS
+    sources: [TermCastTests]
+    settings:
+      SWIFT_VERSION: 5.10
+      GENERATE_INFOPLIST_FILE: YES
+    dependencies:
+      - target: TermCast

@@ -81,7 +81,8 @@ See `docs/context/` — session logs, decisions, smoke tests, open questions.
 
 ## Git Conventions
 
-Commit format:
+### Commit Format
+
 ```
 <type>(<scope>): <description>
 
@@ -94,6 +95,47 @@ Examples:
 - `fix(ios): handle JWT expiry with graceful re-auth`
 - `chore(shared): pin xterm.js to 5.3.0`
 
+### Branching Strategy
+
+```
+main
+ └── feature/phase-0-scaffold     → merged to main when Phase 0 complete
+ └── feature/phase-1-mac-agent    → merged to main when Phase 1 complete + tests green
+ └── feature/phase-2-ios-app      → merged to main when Phase 2 complete + tests green
+ └── feature/phase-3-android-app  → merged to main when Phase 3 complete + tests green
+```
+
+- **`main`** — always releasable; only receives merges from completed, tested phase branches
+- **`feature/phase-N-*`** — one branch per phase; all task commits land here
+- **No direct commits to `main`** — all work goes through feature branches
+- **Hotfixes** — branch off `main` as `fix/<description>`, merge back to both `main` and the active feature branch
+
+### When to Merge
+
+| Event | Action |
+|-------|--------|
+| Phase scaffold complete (all tasks done, all tests pass) | Merge `feature/phase-N-*` → `main` with `--no-ff`; tag `vN.0-phase-N` |
+| Mid-phase checkpoint (e.g. after core models/networking) | No merge — keep on feature branch; push to remote for backup |
+| Bug found on a released phase | Branch `fix/*` from `main`, fix, merge back to `main` + active feature branch |
+| New session starts on same phase | Continue on existing feature branch — do not create a new branch |
+
+### Merge Procedure
+
+```bash
+# When a phase is complete and tests pass:
+git checkout main
+git merge --no-ff feature/phase-N-name -m "chore: merge phase N — <brief summary>"
+git tag vN.0-phase-N
+git push origin main --tags
+
+# Keep the feature branch for reference (don't delete)
+```
+
+### Current Worktree
+
+All active development happens in `.worktrees/build` on branch `feature/build`.
+When Phase 1 is complete, merge `feature/build` → `main`, then create `feature/phase-2-ios-app` for Phase 2.
+
 ---
 
 ## Project Status
@@ -102,8 +144,8 @@ Updated each session. Current status always in `docs/context/STATUS.md`.
 
 | Phase | Scope | Status |
 |-------|-------|--------|
-| 0 | Monorepo scaffold, CLAUDE.md, docs | In Progress |
-| 1 | Mac Agent — shell integration + WebSocket server | Pending |
+| 0 | Monorepo scaffold, CLAUDE.md, docs | Complete — merged to main |
+| 1 | Mac Agent — shell integration + WebSocket server | In Progress — `feature/build` |
 | 2 | iOS App — onboarding, terminal, reconnect | Pending |
 | 3 | Android App — onboarding, terminal, reconnect | Pending |
 | 4 | Tailscale integration + QR pairing | Pending |
