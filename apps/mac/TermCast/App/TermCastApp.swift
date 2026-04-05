@@ -25,6 +25,9 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         registry = SessionRegistry()
         broadcaster = SessionBroadcaster()
         menuBar = MenuBarController()
+        menuBar.onPairRequested = { [weak self] in
+            Task { @MainActor in self?.showQRCodeIfAvailable() }
+        }
 
         // 3. Wire registry → broadcaster → menu bar
         let reg = registry!
@@ -100,11 +103,26 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
                 return
             }
             try? TailscaleSetup.configureServe()
-            guard let hostname = try? TailscaleSetup.hostname() else { return }
-            guard let secret = try? KeychainStore.load(key: "jwt-secret"),
-                  let qr = TailscaleSetup.qrCode(hostname: hostname, secret: secret) else { return }
-            self.showQRWindow(qr: qr, hostname: hostname)
+            self.showQRCodeIfAvailable()
         }
+    }
+
+    /// Shows the pairing QR window. Safe to call at any time — shows an alert if Tailscale
+    /// is not running or the hostname can't be resolved.
+    @MainActor
+    private func showQRCodeIfAvailable() {
+        guard TailscaleSetup.isTailscaleInstalled() else {
+            showAlert("Tailscale Required", "Install Tailscale from tailscale.com, then retry.")
+            return
+        }
+        guard let hostname = try? TailscaleSetup.hostname(),
+              let secret = try? KeychainStore.load(key: "jwt-secret"),
+              let qr = TailscaleSetup.qrCode(hostname: hostname, secret: secret) else {
+            showAlert("Setup Incomplete",
+                      "Could not reach Tailscale. Make sure Tailscale is running.")
+            return
+        }
+        showQRWindow(qr: qr, hostname: hostname)
     }
 
     private func recoverSessions() {

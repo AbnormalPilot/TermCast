@@ -12,19 +12,31 @@ struct TailscaleStatus: Decodable {
 }
 
 struct TailscaleSetup {
-    static let tailscaleBin = "/usr/local/bin/tailscale"
+    /// All known install locations for the Tailscale CLI, in priority order.
+    static let candidatePaths: [String] = [
+        "/usr/local/bin/tailscale",                                 // Homebrew Intel / legacy
+        "/opt/homebrew/bin/tailscale",                              // Homebrew Apple Silicon
+        "/Applications/Tailscale.app/Contents/MacOS/Tailscale"     // App Store / direct download
+    ]
+
+    /// Returns the first path in `candidates` that exists on disk, or nil.
+    static func resolvePath(checking candidates: [String]) -> String? {
+        candidates.first { FileManager.default.fileExists(atPath: $0) }
+    }
 
     static func isTailscaleInstalled() -> Bool {
-        FileManager.default.fileExists(atPath: tailscaleBin)
+        resolvePath(checking: candidatePaths) != nil
     }
 
     @discardableResult
     static func configureServe() throws -> String {
-        try shell(tailscaleBin, "serve", "--https=443", "7681")
+        guard let bin = resolvePath(checking: candidatePaths) else { throw TailscaleError.notInstalled }
+        return try shell(bin, "serve", "--https=443", "7681")
     }
 
     static func hostname() throws -> String {
-        let json = try shell(tailscaleBin, "status", "--json")
+        guard let bin = resolvePath(checking: candidatePaths) else { throw TailscaleError.notInstalled }
+        let json = try shell(bin, "status", "--json")
         guard let data = json.data(using: .utf8) else { throw TailscaleError.parseError }
         let status = try JSONDecoder().decode(TailscaleStatus.self, from: data)
         return status.selfNode.dnsName.hasSuffix(".")

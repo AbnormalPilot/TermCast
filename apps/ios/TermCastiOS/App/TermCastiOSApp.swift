@@ -1,4 +1,3 @@
-// apps/ios/TermCastiOS/App/TermCastiOSApp.swift
 import SwiftUI
 
 @main
@@ -7,15 +6,24 @@ struct TermCastiOSApp: App {
     @StateObject private var sessionStore = SessionStore()
     @State private var isOnboarding = !PairingStore.hasCredentials()
     @State private var isOffline = false
+    @State private var isAuthFailed = false
 
     var body: some Scene {
         WindowGroup {
             contentView
                 .onChange(of: wsClient.state) { newState in
                     switch newState {
-                    case .offline: isOffline = true
-                    case .connected: isOffline = false
-                    default: break
+                    case .offline:
+                        isOffline = true
+                        isAuthFailed = false
+                    case .authFailed:
+                        isOffline = true
+                        isAuthFailed = true
+                    case .connected:
+                        isOffline = false
+                        isAuthFailed = false
+                    default:
+                        break
                     }
                 }
                 .task {
@@ -31,13 +39,24 @@ struct TermCastiOSApp: App {
             QRScanView { host, secret in
                 try? PairingStore.save(host: host, secret: secret)
                 isOnboarding = false
+                isAuthFailed = false
                 connect()
             }
         } else if isOffline {
-            OfflineView {
-                isOffline = false
-                connect()
-            }
+            OfflineView(
+                onRetry: {
+                    isOffline = false
+                    isAuthFailed = false
+                    connect()
+                },
+                onUnpair: isAuthFailed ? {
+                    PairingStore.clear()
+                    wsClient.disconnect()
+                    isOffline = false
+                    isAuthFailed = false
+                    isOnboarding = true
+                } : nil
+            )
         } else {
             SessionListView(sessionStore: sessionStore, wsClient: wsClient)
         }
@@ -78,7 +97,6 @@ struct TermCastiOSApp: App {
         }
         wsClient.connect(host: creds.host, secret: creds.secret)
     }
-
 }
 
 // MARK: - PairingStore convenience

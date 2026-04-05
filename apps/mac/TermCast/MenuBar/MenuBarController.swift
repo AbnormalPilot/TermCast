@@ -7,6 +7,9 @@ final class MenuBarController: NSObject {
     private var sessions: [Session] = []
     private var clientCount: Int = 0
 
+    /// Called when the user selects "Pair another device…" from the menu.
+    var onPairRequested: (() -> Void)?
+
     override init() {
         super.init()
         statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
@@ -42,7 +45,11 @@ final class MenuBarController: NSObject {
             menu.addItem(none)
         } else {
             for session in sessions {
-                let item = NSMenuItem(title: "\(session.termApp) — \(session.shell)", action: nil, keyEquivalent: "")
+                let item = NSMenuItem(
+                    title: "\(session.termApp) — \(session.shell)",
+                    action: nil,
+                    keyEquivalent: ""
+                )
                 item.isEnabled = false
                 menu.addItem(item)
             }
@@ -55,10 +62,23 @@ final class MenuBarController: NSObject {
         clientItem.isEnabled = false
         menu.addItem(clientItem)
         menu.addItem(.separator())
+        let pairItem = NSMenuItem(
+            title: "Pair another device…",
+            action: #selector(pairDevice),
+            keyEquivalent: ""
+        )
+        pairItem.target = self
+        menu.addItem(pairItem)
+        menu.addItem(.separator())
         menu.addItem(NSMenuItem(title: "Preferences…", action: #selector(openPreferences), keyEquivalent: ","))
-        menu.addItem(NSMenuItem(title: "Quit TermCast", action: #selector(NSApplication.terminate(_:)), keyEquivalent: "q"))
+        menu.addItem(NSMenuItem(
+            title: "Quit TermCast",
+            action: #selector(NSApplication.terminate(_:)),
+            keyEquivalent: "q"
+        ))
     }
 
     @objc private func statusBarButtonClicked() {}
     @objc private func openPreferences() { NSApp.activate(ignoringOtherApps: true) }
+    @objc private func pairDevice() { onPairRequested?() }
 }

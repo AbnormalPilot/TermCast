@@ -152,4 +152,21 @@ class SessionViewModelTest {
             cancelAndIgnoreRemainingEvents()
         }
     }
+
+    @Test
+    fun `AUTH_FAILED state propagates through SessionViewModel to observer`() = runTest {
+        val fakeClient = FakeWSClient()
+        val vm = SessionViewModel(fakeClient)
+
+        // Simulate server rejecting the JWT — emit AUTH_FAILED from the fake client
+        fakeClient.setState(ConnectionState.AUTH_FAILED)
+        advanceUntilIdle()
+
+        // SessionViewModel exposes connectionState from the WS client; verify AUTH_FAILED propagates
+        vm.connectionState.test {
+            val current = awaitItem()
+            assertEquals(ConnectionState.AUTH_FAILED, current)
+            cancelAndIgnoreRemainingEvents()
+        }
+    }
 }

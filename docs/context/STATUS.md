@@ -1,8 +1,8 @@
 # TermCast — Project Status
 
 **Last Updated:** 2026-04-05  
-**Current Phase:** Complete — Phases 1–3 + Comprehensive Testing  
-**Branch:** feature/phase-2-ios-app (merging → main)
+**Current Phase:** Complete — Phase 4 (Tailscale integration + QR pairing end-to-end)  
+**Branch:** feature/phase-4-tailscale (merging → main)
 
 ---
 
@@ -14,15 +14,20 @@
 | 1 | Mac Agent — shell integration + SwiftNIO WS server | Complete — merged to main | Plan: phase-1-mac-agent.md |
 | 2 | iOS App — onboarding, SwiftTerm, reconnect | Complete — merging to main | Plan: phase-2-ios-app.md |
 | 3 | Android App — onboarding, xterm.js WebView, reconnect | Complete — merging to main | Plan: phase-3-android-app.md |
-| 4 | Tailscale integration + QR pairing end-to-end | Pending | |
+| 4 | Tailscale integration + QR pairing end-to-end | Complete — merging to main | Plan: phase-4-tailscale-pairing.md |
 | 5 | Polish, error states, full test coverage | Pending | |
 
 ---
 
 ## Current Session Focus
 
-Phases 1–3 (Mac Agent, iOS App, Android App) complete. Comprehensive testing infrastructure in place (~180 tests across all platforms).
-Next: merge feature/phase-2-ios-app → main, tag v3.0-phase-3, then begin Phase 4 (Tailscale + QR pairing end-to-end).
+Phase 4 complete. All four tasks shipped:
+- T1: Mac multi-path Tailscale binary detection (Intel/ARM/App Store)
+- T2: Mac "Pair another device…" menu item
+- T3: Android AUTH_FAILED state — HTTP rejection detection, auto re-pair
+- T4: iOS authFailed state — didEverConnect heuristic, Unpair button on OfflineView
+
+Next: merge feature/phase-4-tailscale → main, tag v4.0-phase-4, then Phase 5 (polish + testing).
 
 ---
 
