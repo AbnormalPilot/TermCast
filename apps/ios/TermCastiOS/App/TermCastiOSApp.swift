@@ -45,34 +45,31 @@ struct TermCastiOSApp: App {
             isOnboarding = true
             return
         }
-        wsClient.onMessage = { [weak sessionStore] msg in
-            guard let sessionStore else { return }
+        wsClient.onMessage = { [weak sessionStore, weak wsClient] msg in
             Task { @MainActor in
-                sessionStore.apply(msg)
+                sessionStore?.apply(msg)
+                guard let wsClient else { return }
+                switch msg.type {
+                case .output:
+                    guard let idStr = msg.sessionId, let id = UUID(uuidString: idStr),
+                          let b64 = msg.data, let data = Data(base64Encoded: b64) else { return }
+                    NotificationCenter.default.post(
+                        name: .termcastOutput(id),
+                        object: nil,
+                        userInfo: ["data": data]
+                    )
+                case .sessionClosed:
+                    guard let idStr = msg.sessionId, let id = UUID(uuidString: idStr) else { return }
+                    NotificationCenter.default.post(name: .termcastSessionEnded(id), object: nil)
+                case .ping:
+                    wsClient.send(.pong())
+                default: break
+                }
             }
-            dispatchToTerminals(msg)
         }
         wsClient.connect(host: creds.host, secret: creds.secret)
     }
 
-    private func dispatchToTerminals(_ msg: WSMessage) {
-        switch msg.type {
-        case .output:
-            guard let idStr = msg.sessionId, let id = UUID(uuidString: idStr),
-                  let b64 = msg.data, let data = Data(base64Encoded: b64) else { return }
-            NotificationCenter.default.post(
-                name: .termcastOutput(id),
-                object: nil,
-                userInfo: ["data": data]
-            )
-        case .sessionClosed:
-            guard let idStr = msg.sessionId, let id = UUID(uuidString: idStr) else { return }
-            NotificationCenter.default.post(name: .termcastSessionEnded(id), object: nil)
-        case .ping:
-            wsClient.send(.pong())
-        default: break
-        }
-    }
 }
 
 // MARK: - PairingStore convenience

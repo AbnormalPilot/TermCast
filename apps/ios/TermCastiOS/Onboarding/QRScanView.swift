@@ -9,25 +9,40 @@ struct PairingPayload: Decodable {
 
 struct QRScanView: View {
     let onPaired: (String, Data) -> Void
+    @State private var cameraError: String?
 
     var body: some View {
         ZStack {
-            CameraPreview(onCode: { code in
-                guard let data = code.data(using: .utf8),
-                      let payload = try? JSONDecoder().decode(PairingPayload.self, from: data),
-                      let secret = Data(hexEncoded: payload.secret) else { return }
-                onPaired(payload.host, secret)
-            })
-            .ignoresSafeArea()
+            if let error = cameraError {
+                VStack(spacing: 16) {
+                    Image(systemName: "camera.slash")
+                        .font(.system(size: 48))
+                        .foregroundStyle(.secondary)
+                    Text(error)
+                        .multilineTextAlignment(.center)
+                        .foregroundStyle(.secondary)
+                        .padding()
+                }
+            } else {
+                CameraPreview(onCode: { code in
+                    guard let data = code.data(using: .utf8),
+                          let payload = try? JSONDecoder().decode(PairingPayload.self, from: data),
+                          let secret = Data(hexEncoded: payload.secret) else { return }
+                    onPaired(payload.host, secret)
+                }, onError: { error in
+                    cameraError = error
+                })
+                .ignoresSafeArea()
 
-            VStack {
-                Spacer()
-                Text("Scan the QR code shown on your Mac")
-                    .foregroundStyle(.white)
-                    .padding()
-                    .background(Color.black.opacity(0.6))
-                    .clipShape(Capsule())
-                    .padding(.bottom, 40)
+                VStack {
+                    Spacer()
+                    Text("Scan the QR code shown on your Mac")
+                        .foregroundStyle(.white)
+                        .padding()
+                        .background(Color.black.opacity(0.6))
+                        .clipShape(Capsule())
+                        .padding(.bottom, 40)
+                }
             }
         }
     }
@@ -37,10 +52,12 @@ struct QRScanView: View {
 
 private struct CameraPreview: UIViewRepresentable {
     let onCode: (String) -> Void
+    var onError: ((String) -> Void)?
 
     func makeUIView(context: Context) -> CameraView {
         let view = CameraView()
         view.onCode = onCode
+        view.onError = onError
         return view
     }
 
@@ -49,6 +66,7 @@ private struct CameraPreview: UIViewRepresentable {
 
 private final class CameraView: UIView, AVCaptureMetadataOutputObjectsDelegate {
     var onCode: ((String) -> Void)?
+    var onError: ((String) -> Void)?
     private var session: AVCaptureSession?
     private var previewLayer: AVCaptureVideoPreviewLayer?
 
@@ -62,7 +80,10 @@ private final class CameraView: UIView, AVCaptureMetadataOutputObjectsDelegate {
         let session = AVCaptureSession()
         guard let device = AVCaptureDevice.default(for: .video),
               let input = try? AVCaptureDeviceInput(device: device),
-              session.canAddInput(input) else { return }
+              session.canAddInput(input) else {
+            DispatchQueue.main.async { self.onError?("Camera unavailable. Check permissions in Settings.") }
+            return
+        }
         session.addInput(input)
 
         let output = AVCaptureMetadataOutput()

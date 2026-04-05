@@ -22,7 +22,7 @@ struct TerminalView: UIViewRepresentable {
                 let bytes = Array(ptr.bindMemory(to: UInt8.self))
                 uiView.feed(byteArray: ArraySlice(bytes))
             }
-            DispatchQueue.main.async { self.pendingOutput = nil }
+            pendingOutput = nil
         }
     }
 
