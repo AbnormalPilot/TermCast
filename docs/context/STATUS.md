@@ -10,19 +10,19 @@
 
 | Phase | Scope | Status | Notes |
 |-------|-------|--------|-------|
-| 0 | Monorepo scaffold, CLAUDE.md, design spec | In Progress | Design approved, writing plan next |
-| 1 | Mac Agent — shell integration + SwiftNIO WS server | Pending | |
-| 2 | iOS App — onboarding, SwiftTerm, reconnect | Pending | |
-| 3 | Android App — onboarding, xterm.js WebView, reconnect | Pending | |
-| 4 | Tailscale integration + QR pairing end-to-end | Pending | |
+| 0 | Monorepo scaffold, CLAUDE.md, design spec | Ready | Plan: phase-0-scaffold.md |
+| 1 | Mac Agent — shell integration + SwiftNIO WS server | Ready | Plan: phase-1-mac-agent.md |
+| 2 | iOS App — onboarding, SwiftTerm, reconnect | Ready | Plan: phase-2-ios-app.md |
+| 3 | Android App — onboarding, xterm.js WebView, reconnect | Ready | Plan: phase-3-android-app.md |
+| 4 | Tailscale integration + QR pairing end-to-end | Pending | Covered in Phase 1 Task 13 + 15 |
 | 5 | Polish, error states, full test coverage | Pending | |
 
 ---
 
 ## Current Session Focus
 
-Brainstorming complete. Design spec written and approved.
-Next: implementation plan via `writing-plans` skill.
+Design and planning complete. All 4 implementation plans written and committed.
+Next: execute Phase 0 (scaffold), then Phase 1 (Mac Agent).
 
 ---
 
