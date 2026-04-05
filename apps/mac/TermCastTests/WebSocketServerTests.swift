@@ -2,6 +2,8 @@ import Testing
 import Foundation
 @testable import TermCast
 
+// .serialized required: tests bind real OS ports and the fallback test depends on
+// port 9681 being occupied — concurrent execution would produce non-deterministic results.
 @Suite("WebSocketServer", .serialized)
 struct WebSocketServerTests {
 
@@ -66,6 +68,7 @@ struct WebSocketServerTests {
         await #expect(throws: WebSocketServerError.noPortAvailable) {
             _ = try await server.start()
         }
+        try await server.stop()
 
         for b in blockers { try await b.stop() }
     }

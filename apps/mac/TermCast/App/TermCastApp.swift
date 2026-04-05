@@ -67,7 +67,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         let ws = wsServer!
         Task {
             do {
-                let group = await ws.group
+                let group = ws.eventLoopGroup()
                 try await ss.start(group: group)
                 let boundPort = try await ws.start()
                 UserDefaults.standard.set(boundPort, forKey: "wsPort")

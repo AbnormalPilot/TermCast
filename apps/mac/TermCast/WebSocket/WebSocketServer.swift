@@ -14,7 +14,9 @@ actor WebSocketServer {
     private let registry: SessionRegistry
     private let broadcaster: SessionBroadcaster
     private var serverChannel: (any Channel)?
-    let group = MultiThreadedEventLoopGroup(numberOfThreads: System.coreCount)
+    private let group = MultiThreadedEventLoopGroup(numberOfThreads: System.coreCount)
+
+    nonisolated func eventLoopGroup() -> MultiThreadedEventLoopGroup { group }
 
     /// Number of consecutive ports to attempt before giving up.
     private static let portAttempts = 5
@@ -65,7 +67,7 @@ actor WebSocketServer {
             do {
                 serverChannel = try await bootstrap.bind(host: "127.0.0.1", port: port).get()
                 return port
-            } catch let err as IOError where err.errnoCode == EADDRINUSE {
+            } catch let err as IOError where err.errnoCode == EADDRINUSE { // Darwin: 48
                 continue
             }
         }
@@ -73,7 +75,9 @@ actor WebSocketServer {
     }
 
     func stop() async throws {
+        guard serverChannel != nil else { return }
         try await serverChannel?.close().get()
+        serverChannel = nil
         try await group.shutdownGracefully()
     }
 }
