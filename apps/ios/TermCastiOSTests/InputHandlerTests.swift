@@ -58,4 +58,10 @@ struct InputHandlerTests {
         let bytes = InputHandler.encode(special: .arrowLeft)
         #expect(bytes == Data([0x1b, 0x5b, 0x44]))
     }
+
+    @Test("invalid ctrl character returns empty data")
+    func ctrlInvalidCharacter() {
+        let bytes = InputHandler.encode(ctrl: "1")
+        #expect(bytes == Data())
+    }
 }
